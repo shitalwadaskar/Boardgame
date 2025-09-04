@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/powarprashant/Boardgame.git'
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/shitalwadaskar/Boardgame.git'
             }
         }
         
@@ -69,7 +69,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker build -t prashantkpowar/boardshack:latest ."
+                        sh "docker build -t shitalwadaskar/boardshack:latest ."
                     }
                     
                 }
@@ -78,7 +78,7 @@ pipeline {
         
         stage('Docker Image Scan') {
             steps {
-                sh "trivy image --format table -o trivy-image-report.html prashantkpowar/boardshack:latest"
+                sh "trivy image --format table -o trivy-image-report.html shitalwadaskar/boardshack:latest"
             }
         }
         
@@ -86,7 +86,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                        sh "docker push prashantkpowar/boardshack:latest"
+                        sh "docker push shitalwadaskar/boardshack:latest"
                     }
                 }
             }
